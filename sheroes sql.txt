@@ -1,0 +1,350 @@
+
+--
+-- Database: `sheroes`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin`
+--
+
+CREATE TABLE `admin` (
+  `Id` int(11) NOT NULL,
+  `Name` varchar(100) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `Password` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`Id`, `Name`, `Email`, `Password`) VALUES
+(1, 'admin', 'admin@gmail.com', '$2y$10$dXeXrM.3h0deF0NU3m2yrOAkEARRbg/J737zZondXDu5SJvA6Pxdu'),
+(2, 'wwww', 'abcw@gmail.com', '$2y$10$Hs4ZPlRhRNZS5stNHc5BpOKq5VCM9MLLJtRu.Aso6XsBPceep8tAS'),
+(3, 'sad', 'abasdc@gmail.com', '$2y$10$mQEaiz9bo7Q/BBRy8F5XCOCo1.Yn9/X3vgpqMCYwU7oE8/zrAlBzS');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `application`
+--
+
+CREATE TABLE `application` (
+  `Id` int(11) NOT NULL,
+  `JobId` int(11) DEFAULT NULL,
+  `JobSeekerId` int(11) DEFAULT NULL,
+  `ResumeFile` varchar(255) DEFAULT NULL,
+  `ApplicationDate` datetime DEFAULT current_timestamp(),
+  `Status` enum('Applied','Reviewed','Rejected','Shortlisted') DEFAULT 'Applied'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `application`
+--
+
+INSERT INTO `application` (`Id`, `JobId`, `JobSeekerId`, `ResumeFile`, `ApplicationDate`, `Status`) VALUES
+(1, 1, 1, 'sara_resume.pdf', '2025-04-17 04:42:15', 'Rejected'),
+(2, 2, 2, 'omar_resume.pdf', '2025-04-17 04:42:15', 'Applied'),
+(3, 3, 3, 'layla_resume.pdf', '2025-04-17 04:42:15', 'Reviewed'),
+(4, 4, 4, 'faisal_resume.pdf', '2025-04-17 04:42:15', 'Applied'),
+(5, 5, 5, 'reem_resume.pdf', '2025-04-17 04:42:15', 'Applied'),
+(6, 1, 2, 'omar_resume.pdf', '2025-04-17 04:42:15', 'Shortlisted'),
+(7, 6, 1, 'sara_resume.pdf', '2025-04-17 04:42:15', 'Applied'),
+(8, 7, 4, 'faisal_resume.pdf', '2025-04-17 04:42:15', 'Applied'),
+(9, 8, 3, 'layla_resume.pdf', '2025-04-17 04:42:15', 'Applied'),
+(10, 9, 5, 'reem_resume.pdf', '2025-04-17 04:42:15', 'Applied'),
+(11, 2, 1, NULL, '2025-04-17 23:05:34', 'Applied'),
+(12, 4, 1, NULL, '2025-04-17 23:05:46', 'Applied'),
+(13, 3, 1, NULL, '2025-04-17 23:06:06', 'Applied'),
+(14, 8, 1, NULL, '2025-04-17 23:21:07', 'Applied');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employer`
+--
+
+CREATE TABLE `employer` (
+  `Id` int(11) NOT NULL,
+  `CompanyName` varchar(150) DEFAULT NULL,
+  `ContactPerson` varchar(100) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `Password` varchar(100) DEFAULT NULL,
+  `Phone` varchar(20) DEFAULT NULL,
+  `Location` varchar(100) DEFAULT NULL,
+  `CreatedAt` datetime DEFAULT current_timestamp(),
+  `CompanyDescription` varchar(500) NOT NULL DEFAULT 'not yet uploaded',
+  `Website` varchar(255) DEFAULT NULL,
+  `Logo` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `employer`
+--
+
+INSERT INTO `employer` (`Id`, `CompanyName`, `ContactPerson`, `Email`, `Password`, `Phone`, `Location`, `CreatedAt`, `CompanyDescription`, `Website`, `Logo`) VALUES
+(1, 'emp', '0000000', 'emp@gmail.com', '$2y$10$deYHdcZQT/muDQwJH5.QWe5W.qCqw1y8/jXuRs5rDBJp6YZn6AGZi', '000000000', 'swat', '2025-04-17 04:20:52', 'not yet uploaded', 'http://localhost/Career-Hub-Website/company-profile.php', 'uploads/company_logos/company_1_1744914151.PNG'),
+(2, 'Tech Innovators Ltd', 'Ahmed Ali', 'ahmed@techinnovators.com', 'password1', '0551234567', 'rawalpendi', '2025-04-17 04:40:25', 'not yet uploaded', NULL, NULL),
+(3, 'Creative Minds Studio', 'Sara Al-Sabah', 'sara@creativeminds.com', 'password2', '0552345678', 'Lahore', '2025-04-17 04:40:25', 'not yet uploaded', NULL, NULL),
+(4, 'PeopleFirst HR Solutions', 'Mohammed Al-Khaldi', 'mohammed@peoplefirst.com', 'password3', '0553456789', 'Dammam', '2025-04-17 04:40:25', 'not yet uploaded', NULL, NULL),
+(5, 'Data Pro Solutions', 'Fatima Al-Harbi', 'fatima@datapro.com', 'password4', '0554567890', 'Jubail', '2025-04-17 04:40:25', 'not yet uploaded', NULL, NULL),
+(6, 'FinanceFix Consultants', 'Omar Al-Zahrani', 'omar@financefix.com', 'password5', '0555678901', 'Mecca', '2025-04-17 04:40:25', 'not yet uploaded', NULL, NULL),
+(7, 'ccc', 'ccccc', 'abc@gmail.com', '$2y$10$NGY6kMWLMjP8UrdxpOrNdOD3Ka.ITSgS3sxYxVD3L17x97cJw58di', '000000000', 'Lahore', '2025-04-28 20:40:22', 'not yet uploaded', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job`
+--
+
+CREATE TABLE `job` (
+  `Id` int(11) NOT NULL,
+  `EmployerId` int(11) DEFAULT NULL,
+  `JobTitle` varchar(150) DEFAULT NULL,
+  `CompanyName` varchar(150) DEFAULT NULL,
+  `Location` varchar(100) DEFAULT NULL,
+  `JobRequirements` text DEFAULT NULL,
+  `SalaryRange` varchar(50) DEFAULT NULL,
+  `JobType` enum('Full-time','Part-time','Contract') DEFAULT NULL,
+  `ApplicationDeadline` date DEFAULT NULL,
+  `CategoryId` int(11) DEFAULT NULL,
+  `Status` enum('Pending','Approved','Rejected') DEFAULT 'Pending',
+  `CreatedAt` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `job`
+--
+
+INSERT INTO `job` (`Id`, `EmployerId`, `JobTitle`, `CompanyName`, `Location`, `JobRequirements`, `SalaryRange`, `JobType`, `ApplicationDeadline`, `CategoryId`, `Status`, `CreatedAt`) VALUES
+(1, 1, 'Software Developer', 'Tech Innovators Ltd', 'Riyadh', 'PHP, JS, SQL knowledge.', '8000-12000 SAR', 'Full-time', '2025-05-30', 1, 'Approved', '2025-04-17 04:42:01'),
+(2, 2, 'Graphic Designer', 'Creative Minds Studio', 'Jeddah', 'Photoshop, Illustrator, Figma.', '5000-8000 SAR', 'Part-time', '2025-05-20', 2, 'Approved', '2025-04-17 04:42:01'),
+(3, 1, 'Marketing Executive', 'Tech Innovators Ltd', 'Dammam', 'Social media, SEO.', '7000-10000 SAR', 'Full-time', '2025-05-25', 3, 'Approved', '2025-04-17 04:42:01'),
+(4, 3, 'HR Coordinator', 'PeopleFirst HR Solutions', 'Riyadh', 'HRMS systems knowledge.', '6000-9000 SAR', 'Full-time', '2025-05-28', 4, 'Approved', '2025-04-17 04:42:01'),
+(5, 4, 'Data Analyst', 'Data Pro Solutions', 'Jubail', 'Excel, Power BI, SQL.', '9000-13000 SAR', 'Full-time', '2025-06-05', 5, 'Approved', '2025-04-17 04:42:01'),
+(6, 2, 'UI/UX Designer', 'Creative Minds Studio', 'Jeddah', 'Wireframing, UI tools.', '7000-11000 SAR', 'Full-time', '2025-05-31', 2, 'Approved', '2025-04-17 04:42:01'),
+(7, 5, 'Accountant', 'AppSolutions Inc.', 'Mecca', 'QuickBooks, Excel.', '6000-9000 SAR', 'Contract', '2025-05-27', 6, 'Approved', '2025-04-17 04:42:01'),
+(8, 3, 'Project Manager', 'PeopleFirst HR Solutions', 'Riyadh', 'PMP certified, experience.', '12000-18000 SAR', 'Full-time', '2025-06-10', 7, 'Approved', '2025-04-17 04:42:01'),
+(9, 4, 'Customer Support Specialist', 'Data Pro Solutions', 'Medina', 'English & Arabic.', '5000-7000 SAR', 'Full-time', '2025-05-22', 8, 'Approved', '2025-04-17 04:42:01'),
+(10, 5, 'Mobile App Developer', 'AppSolutions Inc.', 'Tabuk', 'Flutter or React Native.', '10000-14000 SAR', 'Full-time', '2025-06-08', 1, 'Approved', '2025-04-17 04:42:01'),
+(11, 1, 'Java', 'emp', 'Lahore', 'need java developer', '10000', 'Full-time', '2025-04-19', 1, 'Pending', '2025-04-17 21:47:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobcategory`
+--
+
+CREATE TABLE `jobcategory` (
+  `Id` int(11) NOT NULL,
+  `CategoryName` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jobcategory`
+--
+
+INSERT INTO `jobcategory` (`Id`, `CategoryName`) VALUES
+(1, 'Software Development'),
+(2, 'Design & Multimedia'),
+(3, 'Marketing'),
+(4, 'Human Resources'),
+(5, 'Data Analysis'),
+(6, 'Finance & Accounting'),
+(7, 'Project Management'),
+(8, 'Customer Support');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobseeker`
+--
+
+CREATE TABLE `jobseeker` (
+  `Id` int(11) NOT NULL,
+  `Name` varchar(100) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `Password` varchar(100) DEFAULT NULL,
+  `Phone` varchar(20) DEFAULT NULL,
+  `Location` varchar(100) DEFAULT NULL,
+  `ResumeFile` varchar(255) DEFAULT NULL,
+  `Education` text DEFAULT NULL,
+  `Experience` text DEFAULT NULL,
+  `CreatedAt` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `jobseeker`
+--
+
+INSERT INTO `jobseeker` (`Id`, `Name`, `Email`, `Password`, `Phone`, `Location`, `ResumeFile`, `Education`, `Experience`, `CreatedAt`) VALUES
+(1, 'abc', 'abc@gmail.com', '$2y$10$8zKMrRpYiLYlmRy/tdmuO.edBXpaNi.KaJ3DR25SVJsriNwXnBQD.', '000000000', 'swat', 'uploads/resumes/6800396ab013c_Demo_Instructions_2025.pdf', 'BS', 'Java devel', '2025-04-17 04:12:42'),
+(2, 'Ali Saeed', 'ali@jobmail.com', 'pass123', '0561111111', 'Riyadh', 'ali_resume.pdf', 'B.Sc. Computer Science', '2 years at XYZ Software', '2025-04-17 04:40:49'),
+(3, 'Noura Khalid', 'noura@jobmail.com', 'pass456', '0562222222', 'Lahore', 'noura_resume.pdf', 'B.A. Marketing', '1 year internship', '2025-04-17 04:40:49'),
+(4, 'Hassan Omar', 'hassan@jobmail.com', 'pass789', '0563333333', 'Dammam', 'hassan_resume.pdf', 'MBA Finance', '3 years at ABC Corp', '2025-04-17 04:40:49'),
+(5, 'Layla Hussein', 'layla@jobmail.com', 'pass321', '0564444444', 'Peshawar', 'layla_resume.pdf', 'B.Sc. Design', 'Freelancer for 4 years', '2025-04-17 04:40:49'),
+(6, 'Yousef Nabil', 'yousef@jobmail.com', 'pass654', '0565555555', 'Islamabad', 'yousef_resume.pdf', 'B.Sc. IT', '1 year startup experience', '2025-04-17 04:40:49'),
+(7, 'Khan', 'khan@gmail.com', '$2y$10$xKEP.4MHhtsUtO7CmjERX.gk/MBbBB83ulihLDf63t042Opigp9L.', '000000000', 'swat', 'uploads/resumes/6800438ef3bf9_IRFAN ULLAH CV.docx', 'BS Software Engineering', 'Java Developer', '2025-04-17 04:55:58'),
+(9, 'sdf', 'abcsdf@gmail.com', '$2y$10$zSk9UTr.JoBvSAV9Z9F1WOlw9firWvl0HpjDybB/ZiApxfMQOVlDy', '0561111111', 'sdf', 'uploads/resumes/680fa0065b565_LinearLayout vs ConstraintLayout.pdf', 'sdf', 'sdf', '2025-04-28 20:34:30'),
+(10, 'jj', 'jj@gmail.com', '$2y$10$alByhqt2JHD6sZZc7B9CBONJx8F3LcmXUei8iQyBrbrqVcroEY6fi', '000000000', 'lahore', 'uploads/resumes/680fa194b9ae2_project25.pdf', 'jjj', 'dddddddd', '2025-04-28 20:41:08');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `savedjobs`
+--
+
+CREATE TABLE `savedjobs` (
+  `Id` int(11) NOT NULL,
+  `JobSeekerId` int(11) DEFAULT NULL,
+  `JobId` int(11) DEFAULT NULL,
+  `SavedAt` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `savedjobs`
+--
+
+INSERT INTO `savedjobs` (`Id`, `JobSeekerId`, `JobId`, `SavedAt`) VALUES
+(1, 1, 10, '2025-04-17 18:44:15'),
+(2, 1, 7, '2025-04-17 23:00:38'),
+(3, 1, 5, '2025-04-17 23:00:41'),
+(4, 1, 9, '2025-04-17 23:00:43'),
+(5, 1, 3, '2025-04-17 23:20:34'),
+(6, 1, 2, '2025-04-17 23:20:35'),
+(7, 1, 1, '2025-04-17 23:20:36'),
+(8, 10, 3, '2025-04-28 20:41:49'),
+(9, 10, 2, '2025-04-28 20:41:50');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `Email` (`Email`);
+
+--
+-- Indexes for table `application`
+--
+ALTER TABLE `application`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `JobId` (`JobId`),
+  ADD KEY `JobSeekerId` (`JobSeekerId`);
+
+--
+-- Indexes for table `employer`
+--
+ALTER TABLE `employer`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `Email` (`Email`);
+
+--
+-- Indexes for table `job`
+--
+ALTER TABLE `job`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `EmployerId` (`EmployerId`),
+  ADD KEY `CategoryId` (`CategoryId`);
+
+--
+-- Indexes for table `jobcategory`
+--
+ALTER TABLE `jobcategory`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Indexes for table `jobseeker`
+--
+ALTER TABLE `jobseeker`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `Email` (`Email`);
+
+--
+-- Indexes for table `savedjobs`
+--
+ALTER TABLE `savedjobs`
+  ADD PRIMARY KEY (`Id`),
+  ADD UNIQUE KEY `unique_saved_job` (`JobSeekerId`,`JobId`),
+  ADD KEY `JobId` (`JobId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `application`
+--
+ALTER TABLE `application`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `employer`
+--
+ALTER TABLE `employer`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `job`
+--
+ALTER TABLE `job`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `jobcategory`
+--
+ALTER TABLE `jobcategory`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `jobseeker`
+--
+ALTER TABLE `jobseeker`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `savedjobs`
+--
+ALTER TABLE `savedjobs`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `application`
+--
+ALTER TABLE `application`
+  ADD CONSTRAINT `application_ibfk_1` FOREIGN KEY (`JobId`) REFERENCES `job` (`Id`),
+  ADD CONSTRAINT `application_ibfk_2` FOREIGN KEY (`JobSeekerId`) REFERENCES `jobseeker` (`Id`);
+
+--
+-- Constraints for table `job`
+--
+ALTER TABLE `job`
+  ADD CONSTRAINT `job_ibfk_1` FOREIGN KEY (`EmployerId`) REFERENCES `employer` (`Id`),
+  ADD CONSTRAINT `job_ibfk_2` FOREIGN KEY (`CategoryId`) REFERENCES `jobcategory` (`Id`);
+
+--
+-- Constraints for table `savedjobs`
+--
+ALTER TABLE `savedjobs`
+  ADD CONSTRAINT `savedjobs_ibfk_1` FOREIGN KEY (`JobSeekerId`) REFERENCES `jobseeker` (`Id`),
+  ADD CONSTRAINT `savedjobs_ibfk_2` FOREIGN KEY (`JobId`) REFERENCES `job` (`Id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
